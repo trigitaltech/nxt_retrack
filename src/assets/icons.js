@@ -1,0 +1,16 @@
+export const icons = {
+  background: require("./background.png"),
+  button_blue: require("./button-blue.png"),
+  button_purple: require("./button-purple.png"),
+  half_oval: require("./half_oval.png"),
+  line_blue: require("./line-blue.png"),
+  line_purple: require("./line-purple.png"),
+  nxt_retrack: require("./nxt_retrack.png"),
+  passwordldpi: require("./passwordldpi.png"),
+  retrack_blue: require("./retrack-blue.png"),
+  retrack_purple: require("./retrack-purple.png"),
+  sign_in_bottom_wave: require("./sign-in-bottom_wave.png"),
+  userid: require("./userid.png"),
+  visibility_off: require("./visibility_off.png"),
+  visibility: require("./visibility.png"),
+};

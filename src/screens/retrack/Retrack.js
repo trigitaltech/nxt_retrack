@@ -273,20 +273,44 @@ class Retrack extends Component {
                   styles.customerCard,
                   {
                     backgroundColor: "#c5d7db",
-                    height: 100,
                     borderRadius: 10,
                     margin: 16,
-                    padding: 32,
+                    padding: 16,
                     justifyContent: "center",
                   },
                 ]}
               >
-                <Text style={{ color: "#003f5c" }}>
-                  Name : <Text>{customerName}</Text>
-                </Text>
-                <Text style={{ color: "#003f5c" }}>
-                  City : <Text>{customerCity}</Text>
-                </Text>
+                <View
+                  style={{
+                    backgroundColor: "white",
+                    height: 26,
+                    width: 26,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 10,
+                    marginBottom: 8,
+                  }}
+                >
+                  <Image
+                    source={icons.person}
+                    style={{
+                      height: 24,
+                      width: 24,
+                      resizeMode: "contain",
+                      tintColor: "grey",
+                    }}
+                  />
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ marginRight: 24 }}>
+                    <Text style={{ color: "#266CB5", fontSize: 16 }}>Name</Text>
+                    <Text style={{ color: "#266CB5", fontSize: 16 }}>City</Text>
+                  </View>
+                  <View>
+                    <Text>{customerName}</Text>
+                    <Text>{customerCity}</Text>
+                  </View>
+                </View>
               </View>
             ) : null}
           </View>

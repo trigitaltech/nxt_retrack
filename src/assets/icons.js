@@ -13,4 +13,5 @@ export const icons = {
   userid: require("./userid.png"),
   visibility_off: require("./visibility_off.png"),
   visibility: require("./visibility.png"),
+  person: require("./person.png"),
 };

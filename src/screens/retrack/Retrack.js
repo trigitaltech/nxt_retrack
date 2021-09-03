@@ -265,6 +265,7 @@ class Retrack extends Component {
                 <Picker.Item label="Error 1" value="1" />
                 <Picker.Item label="Error 3" value="3" />
                 <Picker.Item label="Error 5" value="5" />
+                <Picker.Item label="Error 6" value="6" />
               </Picker>
             </View>
             {customerName != "" ? (
@@ -301,14 +302,14 @@ class Retrack extends Component {
                     }}
                   />
                 </View>
-                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <View style={{ marginRight: 24 }}>
                     <Text style={{ color: "#266CB5", fontSize: 16 }}>Name</Text>
                     <Text style={{ color: "#266CB5", fontSize: 16 }}>City</Text>
                   </View>
                   <View>
-                    <Text>{customerName}</Text>
-                    <Text>{customerCity}</Text>
+                    <Text style={{ fontSize: 16 }}>{customerName}</Text>
+                    <Text style={{ fontSize: 16 }}>{customerCity}</Text>
                   </View>
                 </View>
               </View>

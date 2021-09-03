@@ -22,7 +22,7 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: __DEV__ ? "grant-hits\\trigital" : "",
+      userId: __DEV__ ? "trigital" : "",
       passWord: __DEV__ ? "Imcl!@2019$" : "",
       isLoading: false,
       passWordToggle: true,
@@ -77,12 +77,14 @@ class Login extends React.Component {
     })
       .then((response) => {
         return response.json().then((responseJson) => {
-          console.log(responseJson.status);
+          console.log(responseJson);
           if (responseJson.status == 200) {
             this.userTextInput.clear();
             this.passTextInput.clear();
             this.setState({ isLoading: false, buttonDisable: false });
-            this.props.navigation.navigate("Retrack");
+            this.props.navigation.navigate("Welcome", {
+              userName: userId,
+            });
           } else if (responseJson.status == 400) {
             if (responseJson.response == null) {
               Alert.alert(responseJson.error);

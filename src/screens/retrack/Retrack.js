@@ -28,25 +28,35 @@ class Retrack extends Component {
       customerName: "",
       customerCity: "",
       disabledCustomerId: "",
+      hasBlurred: false,
     };
   }
   componentDidMount() {
-    this.unsubscribe = this.props.navigation.addListener("focus", () => {
+    this.blur_unsub = this.props.navigation.addListener("blur", () => {
       this.setState({
-        customerId: "",
-        error: "1",
-        isLoading: false,
-        isEnabled: false,
-        buttonDisable: false,
-        type: "indigital",
-        customerName: "",
-        customerCity: "",
+        hasBlurred: true,
       });
+    });
+    this.focus_unsub = this.props.navigation.addListener("focus", () => {
+      if (this.state.hasBlurred) {
+        this.setState({
+          customerId: __DEV__ ? "1000272503" : "",
+          error: "1",
+          isLoading: false,
+          isEnabled: false,
+          buttonDisable: false,
+          type: "indigital",
+          customerName: "",
+          customerCity: "",
+          hasBlurred: false,
+        });
+      }
+
       // do something
     });
   }
   componentWillUnmount() {
-    this.unsubscribe();
+    this.focus_unsub();
   }
   onRetrack = () => {
     let { type, customerName, customerId, error, disabledCustomerId } =
@@ -168,17 +178,22 @@ class Retrack extends Component {
           style={styles.backgroundImage}
           resizeMode="cover"
         ></ImageBackground>
-        <View style={{ flex: 2, flexDirection: "row", marginTop: 24 }}>
-          <Image style={{ marginTop: 16 }} source={icons.half_oval} />
+        <View
+          style={{
+            flexDirection: "row",
+            marginVertical: 16,
+            alignItems: "center",
+          }}
+        >
+          <Image style={{ resizeMode: "contain" }} source={icons.half_oval} />
           <Image
-            style={{ marginLeft: 32, marginTop: 24 }}
+            style={{ marginLeft: 32, resizeMode: "contain" }}
             source={icons.nxt_retrack}
             imageStyle={{ marginTop: 50 }}
           />
         </View>
         <View
           style={{
-            flex: 3,
             alignItems: "center",
             justifyContent: "center",
           }}
@@ -247,9 +262,9 @@ class Retrack extends Component {
                   this.setState({ error: itemValue })
                 }
               >
-                <Picker.Item label="Error1" value="1" />
-                <Picker.Item label="Error3" value="3" />
-                <Picker.Item label="Error5" value="5" />
+                <Picker.Item label="Error 1" value="1" />
+                <Picker.Item label="Error 3" value="3" />
+                <Picker.Item label="Error 5" value="5" />
               </Picker>
             </View>
             {customerName != "" ? (
@@ -261,7 +276,7 @@ class Retrack extends Component {
                     height: 100,
                     borderRadius: 10,
                     margin: 16,
-                    padding: 16,
+                    padding: 32,
                     justifyContent: "center",
                   },
                 ]}

@@ -90,28 +90,6 @@ class SuccessRetrack extends React.Component {
               <Text style={styles.buttonText}>Continue</Text>
             </ImageBackground>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={{}}
-            onPress={() => {
-              this.onLogout();
-            }}
-          >
-            <ImageBackground
-              source={icons.button_blue}
-              style={styles.button}
-              imageStyle={{ borderRadius: 10 }}
-            >
-              {!isLoading ? (
-                <Text style={styles.buttonText}>log out</Text>
-              ) : (
-                <ActivityIndicator
-                  size="small"
-                  color={"#fff"}
-                  style={{ marginLeft: 18 }}
-                />
-              )}
-            </ImageBackground>
-          </TouchableOpacity>
         </View>
         <View style={{ flex: 2 }} />
       </View>

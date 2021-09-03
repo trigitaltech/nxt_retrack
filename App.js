@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { Login } from "./src/screens/auth";
+import { Login, Welcome } from "./src/screens/auth";
 import { Retrack, SuccessRetrack } from "./src/screens/retrack";
 
 const Stack = createNativeStackNavigator();
@@ -21,6 +21,7 @@ class App extends React.Component {
           }}
         >
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Retrack" component={Retrack} />
           <Stack.Screen name="SuccessRetrack" component={SuccessRetrack} />
         </Stack.Navigator>

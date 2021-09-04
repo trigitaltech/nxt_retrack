@@ -58,7 +58,7 @@ class Retrack extends Component {
   componentWillUnmount() {
     this.focus_unsub();
   }
-  onRetrack = () => {
+  onRetrack = async () => {
     let { type, customerName, customerId, error, disabledCustomerId } =
       this.state;
     if (customerId != disabledCustomerId) {
@@ -74,11 +74,13 @@ class Retrack extends Component {
         this.setState({ isLoading: false, buttonDisable: false });
         return false;
       }
+      let userId = await AsyncStorage.getItem("userId");
 
       let body = {
         customerId: customerId,
         error: error,
         retrack: customerName == "" ? false : true,
+        user: userId,
       };
       console.log(body);
       fetch(apiUrl, {

@@ -96,6 +96,8 @@ class Login extends React.Component {
         this.props.navigation.navigate("Welcome", {
           userName: userId,
         });
+      } else {
+        alert("Login Failed");
       }
     } catch (error) {
       console.log("Error", error);

@@ -16,6 +16,7 @@ import {
 import SplashScreen from "react-native-splash-screen";
 import AsyncStorage from "@react-native-community/async-storage";
 import { icons } from "../../assets/icons";
+import CheckBox from "react-native-check-box";
 //import { NavigationEvents } from 'react-navigation';
 
 class Login extends React.Component {
@@ -27,14 +28,24 @@ class Login extends React.Component {
       isLoading: false,
       passWordToggle: true,
       buttonDisable: false,
+      rememberMe: false,
     };
   }
 
   componentDidMount() {
     SplashScreen.hide();
+    this.checkIfLoggedIn();
   }
-
+  checkIfLoggedIn = async () => {
+    let userId = await AsyncStorage.getItem("userId");
+    if (userId != undefined && userId != null) {
+      this.props.navigation.navigate("Welcome", {
+        userName: userId,
+      });
+    }
+  };
   onLogin = async () => {
+    let { rememberMe } = this.state;
     this.setState({ isLoading: true, buttonDisable: true });
     setInterval(() => {
       this.setState({ buttonDisable: false });
@@ -64,49 +75,65 @@ class Login extends React.Component {
       passWord: this.state.passWord,
     };
     console.log(body);
-    await AsyncStorage.setItem("userId", userId);
-    await AsyncStorage.setItem("password", this.state.passWord);
     global.userId = userId;
-    fetch(apiUrl, {
+    let response = await fetch(apiUrl, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    })
-      .then((response) => {
-        return response.json().then((responseJson) => {
-          console.log(responseJson);
-          if (responseJson.status == 200) {
-            this.userTextInput.clear();
-            this.passTextInput.clear();
-            this.setState({ isLoading: false, buttonDisable: false });
-            this.props.navigation.navigate("Welcome", {
-              userName: userId,
-            });
-          } else if (responseJson.status == 400) {
-            if (responseJson.response == null) {
-              Alert.alert(responseJson.error);
-              this.setState({ isLoading: false, buttonDisable: false });
-            } else {
-              Alert.alert(responseJson.response.result);
-              this.setState({ isLoading: false, buttonDisable: false });
-            }
-          } else {
-            Alert.alert(responseJson.error);
-            this.setState({ isLoading: false, buttonDisable: false });
-          }
+    });
+    try {
+      if (response.status == 200) {
+        this.userTextInput.clear();
+        this.passTextInput.clear();
+        if (rememberMe) {
+          await AsyncStorage.setItem("userId", userId);
+          await AsyncStorage.setItem("password", this.state.passWord);
+        }
+        this.setState({ isLoading: false, buttonDisable: false });
+        this.props.navigation.navigate("Welcome", {
+          userName: userId,
         });
-      })
-      .catch((error) => {
-        Alert.alert("Exception Error", error.message);
-      });
+      }
+    } catch (error) {
+      console.log("Error", error);
+    }
+
+    // .then((response) => {
+    // return response.json().then((responseJson) => {
+    //   console.log(responseJson);
+    //   if (responseJson.status == 200) {
+
+    //   } else if (responseJson.status == 400) {
+    //     if (responseJson.response == null) {
+    //       Alert.alert(responseJson.error);
+    //       this.setState({ isLoading: false, buttonDisable: false });
+    //     } else {
+    //       Alert.alert(responseJson.response.result);
+    //       this.setState({ isLoading: false, buttonDisable: false });
+    //     }
+    //   } else {
+    //     Alert.alert(responseJson.error);
+    //     this.setState({ isLoading: false, buttonDisable: false });
+    //   }
+    // });
+    // })
+    // .catch((error) => {
+    //   Alert.alert("Exception Error", error.message);
+    // });
   };
 
   render() {
-    const { isLoading, passWordToggle, buttonDisable, userId, passWord } =
-      this.state;
+    const {
+      isLoading,
+      passWordToggle,
+      buttonDisable,
+      userId,
+      passWord,
+      rememberMe,
+    } = this.state;
     return (
       <View style={{ flex: 1 }}>
         <ImageBackground
@@ -221,6 +248,27 @@ class Login extends React.Component {
                 )}
               </ImageBackground>
             </TouchableOpacity>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 8,
+              }}
+            >
+              <Text>Remember Me</Text>
+              <CheckBox
+                style={{ padding: 10 }}
+                checkedCheckBoxColor={"#266CB5"}
+                uncheckedCheckBoxColor={"black"}
+                onClick={() => {
+                  this.setState({
+                    rememberMe: !rememberMe,
+                  });
+                }}
+                isChecked={rememberMe}
+              />
+            </View>
           </View>
         </View>
       </View>

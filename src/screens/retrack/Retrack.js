@@ -10,6 +10,7 @@ import {
   Image,
   Switch,
   Alert,
+  BackHandler,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { icons } from "../../assets/icons";
@@ -32,6 +33,7 @@ class Retrack extends Component {
     };
   }
   componentDidMount() {
+    BackHandler.addEventListener("hardwareBackPress", () => this.onBackPress());
     this.blur_unsub = this.props.navigation.addListener("blur", () => {
       this.setState({
         hasBlurred: true,
@@ -51,12 +53,25 @@ class Retrack extends Component {
           hasBlurred: false,
         });
       }
-
       // do something
     });
   }
+  onBackPress = () => {
+    Alert.alert("Alert", "Exit App ?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "OK", onPress: () => BackHandler.exitApp() },
+    ]);
+    return true;
+  };
   componentWillUnmount() {
     this.focus_unsub();
+    BackHandler.removeEventListener("hardwareBackPress", () =>
+      this.onBackPress()
+    );
   }
   onRetrack = async () => {
     let { type, customerName, customerId, error, disabledCustomerId } =

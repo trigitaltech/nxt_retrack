@@ -164,13 +164,16 @@ class Login extends React.Component {
             style={{
               flexWrap: "wrap",
               marginHorizontal: 16,
-              color: "red",
+              color: "#7d002a",
               fontWeight: "bold",
               fontSize: 20,
+              textAlign: "center",
+              marginBottom: 8,
             }}
           >
-            Please keep your STB connected and Switched-ON while sending Retrack
-            Command
+            {
+              "Please keep your STB connected and Switched-ON while sending \n Retrack Command"
+            }
           </Text>
           <View style={styles.inputView}>
             <Image style={{ marginTop: 24 }} source={icons.userid} />

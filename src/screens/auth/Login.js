@@ -143,140 +143,142 @@ class Login extends React.Component {
       rememberMe,
     } = this.state;
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, justifyContent: "center" }}>
         <ImageBackground
           source={icons.background}
           style={styles.backgroundImage}
           resizeMode="cover"
         ></ImageBackground>
+
         <View
           style={{
-            height: 180,
-          }}
-        ></View>
-        <View
-          style={{
-            height: 400,
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: 8,
           }}
         >
-          <View
+          <Text style={[styles.welcomeText, { bottom: 24 }]}>
+            Hello Again! Welcome back
+          </Text>
+          <Text
             style={{
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: 30,
+              flexWrap: "wrap",
+              marginHorizontal: 16,
+              color: "red",
+              fontWeight: "bold",
+              fontSize: 20,
             }}
           >
-            <Text style={[styles.welcomeText, { bottom: 24 }]}>
-              Hello Again! Welcome back
-            </Text>
-            <View style={styles.inputView}>
-              <Image style={{ marginTop: 24 }} source={icons.userid} />
-              <Text style={styles.star}> *</Text>
-              <TextInput
-                style={{
-                  width: "85%",
-                  color: "black",
-                  paddingLeft: 8,
-                  marginTop: 8,
-                }}
-                value={userId}
-                placeholder="Userid"
-                placeholderTextColor="#818285"
-                autoCapitalize="none"
-                clearButtonMode="always"
-                onChangeText={(text) => this.setState({ userId: text })}
-                ref={(input) => {
-                  this.userTextInput = input;
-                }}
-              />
-            </View>
-            <View style={styles.inputView}>
-              <Image style={{ marginTop: 24 }} source={icons.passwordldpi} />
-              <Text style={styles.star}> *</Text>
-              <TextInput
-                style={{
-                  width: "77%",
-                  color: "black",
-                  paddingLeft: 8,
-                  marginTop: 8,
-                }}
-                value={passWord}
-                placeholder="Password"
-                placeholderTextColor="#818285"
-                secureTextEntry={passWordToggle}
-                onChangeText={(text) => this.setState({ passWord: text })}
-                ref={(input) => {
-                  this.passTextInput = input;
-                }}
-              />
-              {passWordToggle ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setState({ passWordToggle: false });
-                  }}
-                >
-                  <Image
-                    style={{ marginTop: 18 }}
-                    tintColor="#818285"
-                    source={icons.visibility}
-                  />
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setState({ passWordToggle: true });
-                  }}
-                >
-                  <Image
-                    style={{ marginTop: 18 }}
-                    tintColor="#818285"
-                    source={icons.visibility_off}
-                  />
-                </TouchableOpacity>
-              )}
-            </View>
-            <TouchableOpacity
-              style={{ paddingTop: 24 }}
-              onPress={() => this.onLogin()}
-              disabled={buttonDisable}
-            >
-              <ImageBackground
-                source={icons.button_blue}
-                style={styles.button}
-                imageStyle={{ borderRadius: 10 }}
-              >
-                {!isLoading ? (
-                  <Text style={styles.buttonText}>sign in</Text>
-                ) : (
-                  <ActivityIndicator
-                    size="small"
-                    color={"#fff"}
-                    style={{ marginLeft: 18 }}
-                  />
-                )}
-              </ImageBackground>
-            </TouchableOpacity>
-            <View
+            Please keep your STB connected and Switched-ON while sending Retrack
+            Command
+          </Text>
+          <View style={styles.inputView}>
+            <Image style={{ marginTop: 24 }} source={icons.userid} />
+            <Text style={styles.star}> *</Text>
+            <TextInput
               style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
+                width: "85%",
+                color: "black",
+                paddingLeft: 8,
                 marginTop: 8,
               }}
-            >
-              <Text>Remember Me</Text>
-              <CheckBox
-                style={{ padding: 10 }}
-                checkedCheckBoxColor={"#266CB5"}
-                uncheckedCheckBoxColor={"black"}
-                onClick={() => {
-                  this.setState({
-                    rememberMe: !rememberMe,
-                  });
+              value={userId}
+              placeholder="Userid"
+              placeholderTextColor="#818285"
+              autoCapitalize="none"
+              clearButtonMode="always"
+              onChangeText={(text) => this.setState({ userId: text })}
+              ref={(input) => {
+                this.userTextInput = input;
+              }}
+            />
+          </View>
+          <View style={styles.inputView}>
+            <Image style={{ marginTop: 24 }} source={icons.passwordldpi} />
+            <Text style={styles.star}> *</Text>
+            <TextInput
+              style={{
+                width: "77%",
+                color: "black",
+                paddingLeft: 8,
+                marginTop: 8,
+              }}
+              value={passWord}
+              placeholder="Password"
+              placeholderTextColor="#818285"
+              secureTextEntry={passWordToggle}
+              onChangeText={(text) => this.setState({ passWord: text })}
+              ref={(input) => {
+                this.passTextInput = input;
+              }}
+            />
+            {passWordToggle ? (
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({ passWordToggle: false });
                 }}
-                isChecked={rememberMe}
-              />
-            </View>
+              >
+                <Image
+                  style={{ marginTop: 18 }}
+                  tintColor="#818285"
+                  source={icons.visibility}
+                />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({ passWordToggle: true });
+                }}
+              >
+                <Image
+                  style={{ marginTop: 18 }}
+                  tintColor="#818285"
+                  source={icons.visibility_off}
+                />
+              </TouchableOpacity>
+            )}
+          </View>
+          <TouchableOpacity
+            style={{ paddingTop: 24 }}
+            onPress={() => this.onLogin()}
+            disabled={buttonDisable}
+          >
+            <ImageBackground
+              source={icons.button_blue}
+              style={styles.button}
+              imageStyle={{ borderRadius: 10 }}
+            >
+              {!isLoading ? (
+                <Text style={styles.buttonText}>sign in</Text>
+              ) : (
+                <ActivityIndicator
+                  size="small"
+                  color={"#fff"}
+                  style={{ marginLeft: 18 }}
+                />
+              )}
+            </ImageBackground>
+          </TouchableOpacity>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 8,
+            }}
+          >
+            <Text>Remember Me</Text>
+            <CheckBox
+              style={{ padding: 10 }}
+              checkedCheckBoxColor={"#266CB5"}
+              uncheckedCheckBoxColor={"black"}
+              onClick={() => {
+                this.setState({
+                  rememberMe: !rememberMe,
+                });
+              }}
+              isChecked={rememberMe}
+            />
           </View>
         </View>
       </View>

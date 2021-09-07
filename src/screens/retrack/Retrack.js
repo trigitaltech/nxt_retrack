@@ -15,6 +15,7 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import { icons } from "../../assets/icons";
 import AsyncStorage from "@react-native-community/async-storage";
+import { base_url } from "../../utils/api";
 
 class Retrack extends Component {
   constructor(props) {
@@ -82,7 +83,7 @@ class Retrack extends Component {
         buttonDisable: true,
       });
 
-      var apiUrl = `http://65.0.51.207:9000/api/v1/imcl/${type}/retrack`;
+      var apiUrl = `${base_url}/api/v1/imcl/${type}/retrack`;
 
       if (customerId == "") {
         alert("Customer id is required");
@@ -90,6 +91,7 @@ class Retrack extends Component {
         return false;
       }
       let userId = await AsyncStorage.getItem("userId");
+      console.log(userId);
 
       let body = {
         customerId: customerId,
@@ -182,6 +184,8 @@ class Retrack extends Component {
     this.setState({ isLoading: true });
     await AsyncStorage.removeItem("userId");
     await AsyncStorage.removeItem("password");
+    await AsyncStorage.removeItem("rememberMe");
+
     global.userId = "";
     this.setState({ isLoading: false });
     this.props.navigation.popToTop();

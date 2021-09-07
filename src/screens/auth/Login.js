@@ -17,6 +17,7 @@ import SplashScreen from "react-native-splash-screen";
 import AsyncStorage from "@react-native-community/async-storage";
 import { icons } from "../../assets/icons";
 import CheckBox from "react-native-check-box";
+import { base_url } from "../../utils/api";
 //import { NavigationEvents } from 'react-navigation';
 
 class Login extends React.Component {
@@ -37,8 +38,11 @@ class Login extends React.Component {
     this.checkIfLoggedIn();
   }
   checkIfLoggedIn = async () => {
-    let userId = await AsyncStorage.getItem("userId");
-    if (userId != undefined && userId != null) {
+    let rememberMe = await AsyncStorage.getItem("rememberMe");
+
+    if (rememberMe != undefined && rememberMe != null) {
+      let userId = await AsyncStorage.getItem("userId");
+
       this.props.navigation.navigate("Welcome", {
         userName: userId,
       });
@@ -51,7 +55,7 @@ class Login extends React.Component {
       this.setState({ buttonDisable: false });
     }, 30000);
 
-    var apiUrl = "http://65.0.51.207:9000/api/v1/imcl/signin";
+    var apiUrl = `${base_url}/api/v1/imcl/signin`;
 
     var userId = this.state.userId;
     userId = userId.replace("\\\\", "\\");
@@ -88,9 +92,11 @@ class Login extends React.Component {
       if (response.status == 200) {
         this.userTextInput.clear();
         this.passTextInput.clear();
+        await AsyncStorage.setItem("userId", userId);
+
         if (rememberMe) {
-          await AsyncStorage.setItem("userId", userId);
-          await AsyncStorage.setItem("password", this.state.passWord);
+          await AsyncStorage.setItem("rememberMe", "true");
+          //await AsyncStorage.setItem("password", this.state.passWord);
         }
         this.setState({ isLoading: false, buttonDisable: false });
         this.props.navigation.navigate("Welcome", {

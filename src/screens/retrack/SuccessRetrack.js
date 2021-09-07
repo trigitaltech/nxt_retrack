@@ -30,6 +30,8 @@ class SuccessRetrack extends React.Component {
     this.setState({ isLoading: true });
     await AsyncStorage.removeItem("userId");
     await AsyncStorage.removeItem("password");
+    await AsyncStorage.removeItem("rememberMe");
+
     global.userId = "";
     this.setState({ isLoading: false });
     this.props.navigation.popToTop();

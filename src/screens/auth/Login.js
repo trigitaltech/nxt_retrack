@@ -172,7 +172,7 @@ class Login extends React.Component {
             }}
           >
             {
-              "Please keep your STB connected and Switched-ON while sending \n Retrack Command"
+              "The STB should be connected and Switched-ON while sending \n Retrack Command"
             }
           </Text>
           <View style={styles.inputView}>

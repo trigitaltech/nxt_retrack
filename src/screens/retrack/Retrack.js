@@ -270,24 +270,42 @@ class Retrack extends Component {
                 onChangeText={(text) => {
                   this.setState({ customerId: text });
                 }}
-                value={this.state.customerId}
               />
             </View>
+
             <View style={styles.inputView}>
-              <Picker
-                style={styles.pickerStyle}
-                placeholder={"Select Type Of Error"}
-                dropdownIconColor={"#000"}
-                selectedValue={this.state.error}
-                onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ error: itemValue })
-                }
-              >
-                <Picker.Item label="Error 1" value="1" />
-                <Picker.Item label="Error 3" value="3" />
-                <Picker.Item label="Error 5" value="5" />
-                <Picker.Item label="Error 6" value="6" />
-              </Picker>
+              {this.state.type == "indigital" ? (
+                <Picker
+                  style={styles.pickerStyle}
+                  placeholder={"Select Type Of Error"}
+                  dropdownIconColor={"#000"}
+                  selectedValue={this.state.error}
+                  onValueChange={(itemValue, itemIndex) =>
+                    this.setState({ error: itemValue })
+                  }
+                >
+                  <Picker.Item label="Error 1" value="1" />
+                  <Picker.Item label="Error 3" value="3" />
+                  <Picker.Item label="Error 5" value="5" />
+                  <Picker.Item label="Error 6" value="6" />
+                </Picker>
+              ) : (
+                <Picker
+                  style={styles.pickerStyle}
+                  placeholder={"Select Type Of Error"}
+                  dropdownIconColor={"#000"}
+                  selectedValue={this.state.error}
+                  onValueChange={(itemValue, itemIndex) =>
+                    this.setState({ error: itemValue })
+                  }
+                >
+                  <Picker.Item label="Error 1" value="1" />
+                  <Picker.Item label="Error 3" value="3" />
+                  <Picker.Item label="Error 5" value="5" />
+                  <Picker.Item label="Error 6" value="6" />
+                  <Picker.Item label="Remove OSD" value="142356" />
+                </Picker>
+              )}
             </View>
             {customerName != "" ? (
               <View
